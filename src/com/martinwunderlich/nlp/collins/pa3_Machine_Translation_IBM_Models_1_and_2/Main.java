@@ -193,8 +193,8 @@ public class Main {
 	
 		// Initialize q parameters
 		System.out.println("Initializing q parameters...");
-		for(int l = 1; l <= L; l++)
-			for(int m = 1; m <= M; m++) {
+		for(int l = 0; l <= L; l++)
+			for(int m = 0; m <= M; m++) {
 				if( ! allPairsOfSentenceLengthsTraining.contains(l + "+" + m) )
 					continue;
 				for(int i = 1; i <= m; i++)
@@ -299,12 +299,33 @@ public class Main {
 //		printParameters(tParameters, cParametersLong, cParametersShort, qParameters, countsEnglishSpanish, countsEnglish);						
 		
 		
+		// Save t parameters to file
+		System.out.println("Saving t parameters to file...");
+		try {
+			BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\Users\\Administrator\\Downloads\\parameters2.out"), "UTF8"));			
+			
+			for(String tKey : tParameters.keySet()) {
+				Double parameterValue = tParameters.get(tKey);
+				
+				wr.write(tKey + " = " + parameterValue);
+				wr.newLine();
+				wr.flush();
+			}
+			wr.close();
+		}
+		catch(Exception ex) {
+			System.out.println("Error while trying to write parameter file: " + ex.toString());
+		}
+
+		System.out.println("Saving t parameters to file...DONE");
+		
+		
 		// Read in dev corpus
 		ArrayList<SentencePair> devPairs = new ArrayList<SentencePair>();
 			
 		try {
-			BufferedReader br1 = new BufferedReader(new InputStreamReader(new FileInputStream(englishDevCorpus), "UTF8"));
-			BufferedReader br2 = new BufferedReader(new InputStreamReader(new FileInputStream(spanishDevCorpus), "UTF8"));
+			BufferedReader br1 = new BufferedReader(new InputStreamReader(new FileInputStream(englishTestCorpus), "UTF8"));
+			BufferedReader br2 = new BufferedReader(new InputStreamReader(new FileInputStream(spanishTestCorpus), "UTF8"));
 			
 	        String lineEN = "";
 	        String lineES = "";
@@ -334,7 +355,7 @@ public class Main {
 			System.exit(1);
 		}
 		
-		writeAlignmentFile(alignmentOutputFileDev, devPairs, tParameters);
+		writeAlignmentFile(alignmentOutputFileTest, devPairs, tParameters);
 	}
 
 
