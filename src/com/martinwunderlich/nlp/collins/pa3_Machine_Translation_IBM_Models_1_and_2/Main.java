@@ -46,7 +46,7 @@ public class Main {
 	private static HashMap<String, Double> expectedCountsEnglishSpanish= new HashMap<String, Double>();
 	private static HashMap<String, Double> expectedCountsEnglish = new HashMap<String, Double>();
 	
-	private static int iterCount = 5;
+	private static int iterCount = 20;
 	
 	
 	/**
