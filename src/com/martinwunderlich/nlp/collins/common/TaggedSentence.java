@@ -18,20 +18,32 @@
 
 package com.martinwunderlich.nlp.collins.common;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class Sentence extends AbstractSentence {
-
-	public Sentence() {
-		super();		
-	}
-
-	public Sentence(String str) {
+public class TaggedSentence extends Sentence {
+	List<String> tags = new ArrayList<String>();
+	public TaggedSentence() {
 		super();
-		// The string is assumed to be a string with space-separated words. 
-		String[] words = str.split(" ");
 		
-		for(String word : words)
-			this.addWord(word);
+		this.tags.add("*");
+		this.tags.add("*");
+		this.tags.add("STOP");
 	}
-
+	
+	public void tagWordAtPositionWithTag(int position, String tag) {
+		this.tags.add(position + 1, tag);
+	}
+	
+	public String getTag(int index) {
+		return this.tags.get(index + 1);
+	}
+	
+	public String getTagMinusOne(int index) {
+		return this.tags.get(index );
+	}
+	
+	public String getTagMinusTwo(int index) {
+		return this.tags.get(index - 1);
+	}
 }

@@ -18,6 +18,7 @@
 
 package com.martinwunderlich.nlp.collins.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -71,5 +72,48 @@ public class Vocabulary {
 		{
 			this.vocabulary.put( word, count );			 
 		}		
+	}
+
+	public List<String> getRareWords(int maxCount) 
+	{
+		List<String> rareWords = new ArrayList<String>();
+		int count = 0;
+		
+		for( String word : this.vocabulary.keySet() ) {
+			count = this.getCountForWord(word);
+			if( count <= maxCount )
+				rareWords.add(word);
+		}
+		
+		return rareWords;
+	}
+	
+	public int getTotalWordCount() 
+	{
+		int count = 0;
+		
+		for( String word : this.vocabulary.keySet() ) {
+			count += this.getCountForWord(word);			
+		}
+		
+		return count;
+	}
+
+	public boolean containsWord(String text) {
+		return this.vocabulary.containsKey(text);
+	}
+
+	public void addSentence(AbstractSentence sentence) {
+		for(String word : sentence.getWords())
+			this.addWord(word);
+	}
+	
+	public String toString() {
+		String result = "";
+		
+		for( String word : this.vocabulary.keySet() )
+			result += word + " " + this.vocabulary.get(word) + "\n";
+	
+		return result;
 	}
 }

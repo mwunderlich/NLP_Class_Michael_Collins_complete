@@ -16,22 +16,32 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-package com.martinwunderlich.nlp.collins.common;
+package com.martinwunderlich.nlp.collins.pa3_Machine_Translation_IBM_Models_1_and_2;
 
+import com.martinwunderlich.nlp.collins.common.AbstractSentence;
 
-public class Sentence extends AbstractSentence {
-
-	public Sentence() {
-		super();		
+public class SentencePair {
+	private AbstractSentence sentenceOne = null; 
+	private AbstractSentence sentencenTwo = null; 
+	
+	public SentencePair(AbstractSentence s1, AbstractSentence s2){
+		this.sentenceOne = s1; 
+		this.sentencenTwo = s2;
 	}
 
-	public Sentence(String str) {
-		super();
-		// The string is assumed to be a string with space-separated words. 
-		String[] words = str.split(" ");
-		
-		for(String word : words)
-			this.addWord(word);
+	void setSentenceOne(AbstractSentence sentenceOne) {
+		this.sentenceOne = sentenceOne;
 	}
 
+	AbstractSentence getSentenceOne() {
+		return sentenceOne;
+	}
+
+	void setSentencenTwo(AbstractSentence sentencenTwo) {
+		this.sentencenTwo = sentencenTwo;
+	}
+
+	AbstractSentence getSentenceTwo() {
+		return sentencenTwo;
+	}
 }

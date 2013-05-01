@@ -18,20 +18,32 @@
 
 package com.martinwunderlich.nlp.collins.common;
 
+import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-public class Sentence extends AbstractSentence {
+public class DynamicProgrammingTableWithIntegerKeysForDoubleValue {
 
-	public Sentence() {
-		super();		
+	HashMap<String, Double> entries = new HashMap<String, Double>();
+	
+	public void set(int k, String u, String v, Double value) {
+		String entryLabel = k + "+" + u + "+" + v;
+		this.entries.put(entryLabel, value);
 	}
-
-	public Sentence(String str) {
-		super();
-		// The string is assumed to be a string with space-separated words. 
-		String[] words = str.split(" ");
+	
+	public Double get(int k, String u, String v) {
+		String entryLabel = k + "+" + u + "+" + v;
 		
-		for(String word : words)
-			this.addWord(word);
+		return this.entries.get(entryLabel);
 	}
-
+	
+	public String toString() {
+		String result = "";
+		SortedSet<String> keys = new TreeSet<String>(entries.keySet());
+		for (String key : keys) { 
+		   String value = "" + this.entries.get(key) + "\n";
+		   result += key + "\t\t\t\t\t" + value;
+		}
+		return result;
+	}
 }
